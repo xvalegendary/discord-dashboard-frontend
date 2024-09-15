@@ -1,2 +1,3 @@
-# discord-dashboard-frontend
-discord dashboard
+# Simply frontend discord dashboard
+# - used scss, html, js
+# request live-server
