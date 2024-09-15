@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Page Title</title>
+       
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sass.js/0.9.12/sass.sync.min.js"></script>
+        <style type="scss">
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+:root {
+	--c-text-primary: #282a32;
+	--c-text-secondary: #686b87;
+	--c-text-action: #404089;
+	--c-accent-primary: #434ce8;
+	--c-border-primary: #eff1f6;
+	--c-background-primary: #ffffff;
+	--c-background-secondary: #fdfcff;
+	--c-background-tertiary: #ecf3fe;
+	--c-background-quaternary: #e9ecf4;
+}
+
+body {
+	line-height: 1.5;
+	min-height: 100vh;
+	font-family: "Be Vietnam Pro", sans-serif;
+	background-color: var(--c-background-secondary);
+	color: var(--c-text-primary);
+}
+
+img {
+	display: block;
+	max-width: 100%;
+}
+
+:focus {
+	outline: 0;
+}
+
+.responsive-wrapper {
+	width: 90%;
+	max-width: 1280px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.header {
+	display: flex;
+	align-items: center;
+	height: 80px;
+	border-bottom: 1px solid var(--c-border-primary);
+	background-color: var(--c-background-primary);
+}
+
+.header-content {
+	display: flex;
+	align-items: center;
+	& > a {
+		display: none;
+	}
+	@media (max-width: 1200px) {
+		justify-content: space-between;
+		& > a {
+			display: inline-flex;
+		}
+	}
+}
+
+.header-logo {
+	margin-right: 2.5rem;
+	a {
+		display: flex;
+		align-items: center;
+		div {
+			// outline: 2px solid;
+			flex-shrink: 0;
+			position: relative;
+			&:after {
+				display: block;
+				content: "";
+				position: absolute;
+				left: 0;
+				top: auto;
+				right: 0;
+				bottom: 0;
+				overflow: hidden;
+				height: 50%;
+				border-bottom-left-radius: 8px;
+				border-bottom-right-radius: 8px;
+				
+				
+			}
+		}
+	}
+}
+
+.header-navigation {
+	display: flex;
+	flex-grow: 1;
+	align-items: center;
+	justify-content: space-between;
+	@media (max-width: 1200px) {
+		display: none;
+	}
+}
+
+.header-navigation-links {
+	display: flex;
+	align-items: center;
+
+	a {
+		text-decoration: none;
+		color: var(--c-text-action);
+		font-weight: 500;
+		transition: 0.15s ease;
+		& + * {
+			margin-left: 1.5rem;
+		}
+
+		&:hover,
+		&:focus {
+			color: var(--c-accent-primary);
+		}
+	}
+}
+
+.header-navigation-actions {
+	display: flex;
+	align-items: center;
+	& > .avatar {
+		margin-left: 0.75rem;
+	}
+	& > .icon-button + .icon-button {
+		margin-left: 0.25rem;
+	}
+
+	& > .button + .icon-button {
+		margin-left: 1rem;
+	}
+}
+
+.button {
+	font: inherit;
+	color: inherit;
+	text-decoration: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0 1em;
+	height: 40px;
+	border-radius: 8px;
+	line-height: 1;
+	border: 2px solid var(--c-border-primary);
+	color: var(--c-text-action);
+	font-size: 0.875rem;
+	transition: 0.15s ease;
+	background-color: var(--c-background-primary);
+
+	i {
+		margin-right: 0.5rem;
+		font-size: 1.25em;
+	}
+
+	span {
+		font-weight: 500;
+	}
+
+	&:hover,
+	&:focus {
+		border-color: var(--c-accent-primary);
+		color: var(--c-accent-primary);
+	}
+}
+
+.button-token {
+            padding: 15px 30px;
+            font-size: 16px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .button-token:hover {
+            background-color: #0056b3;
+        }
+        #popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        .close {
+            cursor: pointer;
+            color: #007bff;
+            font-weight: bold;
+            float: right;
+        }
+
+.icon-button {
+	font: inherit;
+	color: inherit;
+	text-decoration: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	border-radius: 8px;
+	color: var(--c-text-action);
+	transition: 0.15s ease;
+	i {
+		font-size: 1.25em;
+	}
+
+	&:focus,
+	&:hover {
+		background-color: var(--c-background-tertiary);
+		color: var(--c-accent-primary);
+	}
+}
+
+.avatar {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.main {
+	padding-top: 3rem;
+}
+
+.main-header {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+
+	h1 {
+		font-size: 1.75rem;
+		font-weight: 600;
+		line-height: 1.25;
+		@media (max-width: 550px) {
+			margin-bottom: 1rem;
+		}
+	}
+}
+
+.search {
+	position: relative;
+	display: flex;
+	align-items: center;
+	width: 100%;
+	max-width: 340px;
+	input {
+		font: inherit;
+		color: inherit;
+		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0 1em 0 36px;
+		height: 40px;
+		border-radius: 8px;
+		border: 2px solid var(--c-border-primary);
+		color: var(--c-text-action);
+		font-size: 0.875rem;
+		transition: 0.15s ease;
+		width: 100%;
+		line-height: 1;
+
+		&::placeholder {
+			color: var(--c-text-action);
+		}
+
+		&:focus,
+		&:hover {
+			border-color: var(--c-accent-primary);
+		}
+	}
+
+
+	button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border: 0;
+		background-color: transparent;
+		position: absolute;
+		left: 12px;
+		top: 50%;
+		transform: translateY(-50%);
+		font-size: 1.25em;
+		color: var(--c-text-action);
+		padding: 0;
+		height: 40px;
+	}
+}
+
+.horizontal-tabs {
+	margin-top: 1.5rem;
+	display: flex;
+	align-items: center;
+	overflow-x: auto;
+	@media (max-width: 1000px) {
+		scrollbar-width: none;
+		position: relative;
+		&::-webkit-scrollbar {
+			display: none;
+		}
+	}
+
+	a {
+		display: inline-flex;
+		flex-shrink: 0;
+		align-items: center;
+		height: 48px;
+		padding: 0 0.25rem;
+		font-weight: 500;
+		color: inherit;
+		border-bottom: 3px solid transparent;
+		text-decoration: none;
+		transition: 0.15s ease;
+		&:hover,
+		&:focus,
+		&.active {
+			color: var(--c-accent-primary);
+			border-bottom-color: var(--c-accent-primary);
+		}
+
+		& + * {
+			margin-left: 1rem;
+		}
+	}
+}
+
+.content-header {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	padding-top: 3rem;
+	margin-top: -1px;
+	border-top: 1px solid var(--c-border-primary);
+}
+
+.content-header-intro {
+	h2 {
+		font-size: 1.25rem;
+		font-weight: 600;
+	}
+
+	p {
+		color: var(--c-text-secondary);
+		margin-top: 0.25rem;
+		font-size: 0.875rem;
+		margin-bottom: 1rem;
+	}
+}
+
+.content-header-actions {
+	a:first-child {
+		@media (min-width: 800px) {
+			display: none;
+		}
+	}
+}
+
+.content {
+	border-top: 1px solid var(--c-border-primary);
+	margin-top: 2rem;
+	display: flex;
+	align-items: flex-start;
+}
+.content-panel {
+	display: none;
+	max-width: 280px;
+	width: 25%;
+	padding: 2rem 1rem 2rem 0;
+	margin-right: 3rem;
+	@media (min-width: 800px) {
+		display: block;
+	}
+}
+
+.vertical-tabs {
+	display: flex;
+	flex-direction: column;
+	a {
+		display: flex;
+		align-items: center;
+		padding: 0.75em 1em;
+		background-color: transparent;
+		border-radius: 8px;
+		text-decoration: none;
+		font-weight: 500;
+		color: var(--c-text-action);
+		transition: 0.15s ease;
+		&:hover,
+		&:focus,
+		&.active {
+			background-color: var(--c-background-tertiary);
+			color: var(--c-accent-primary);
+		}
+
+		& + * {
+			margin-top: 0.25rem;
+		}
+	}
+}
+
+.content-main {
+	padding-top: 2rem;
+	padding-bottom: 6rem;
+	flex-grow: 1;
+}
+
+.card-grid {
+	display: grid;
+	grid-template-columns: repeat(1, 1fr);
+	column-gap: 1.5rem;
+	row-gap: 1.5rem;
+	@media (min-width: 600px) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	@media (min-width: 1200px) {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+.card {
+	background-color: var(--c-background-primary);
+	box-shadow: 0 3px 3px 0 rgba(#000, 0.05), 0 5px 15px 0 rgba(#000, 0.05);
+	border-radius: 8px;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+}
+
+.card-header {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	padding: 1.5rem 1.25rem 1rem 1.25rem;
+	div {
+		display: flex;
+		align-items: center;
+
+		span {
+			width: 40px;
+			height: 40px;
+			border-radius: 8px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			img {
+				// max-width: 85%;
+				max-height: 100%;
+			}
+		}
+
+		h3 {
+			margin-left: 0.75rem;
+			font-weight: 500;
+		}
+	}
+}
+
+.toggle {
+	span {
+		display: block;
+		width: 40px;
+		height: 24px;
+		border-radius: 99em;
+		background-color: var(--c-background-quaternary);
+		box-shadow: inset 1px 1px 1px 0 rgba(#000, 0.05);
+		position: relative;
+		transition: 0.15s ease;
+		&:before {
+			content: "";
+			display: block;
+			position: absolute;
+			left: 3px;
+			top: 3px;
+			height: 18px;
+			width: 18px;
+			background-color: var(--c-background-primary);
+			border-radius: 50%;
+			box-shadow: 0 1px 3px 0 rgba(#000, 0.15);
+			transition: 0.15s ease;
+		}
+	}
+
+	input {
+		clip: rect(0 0 0 0);
+		clip-path: inset(50%);
+		height: 1px;
+		overflow: hidden;
+		position: absolute;
+		white-space: nowrap;
+		width: 1px;
+		&:checked + span {
+			background-color: var(--c-accent-primary);
+			&:before {
+				transform: translateX(calc(100% - 2px));
+			}
+		}
+
+		&:focus + span {
+			box-shadow: 0 0 0 4px var(--c-background-tertiary);
+		}
+	}
+}
+
+.card-body {
+	padding: 1rem 1.25rem;
+	font-size: 0.875rem;
+}
+
+.card-footer {
+	margin-top: auto;
+	padding: 1rem 1.25rem;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	border-top: 1px solid var(--c-border-primary);
+	a {
+		color: var(--c-text-action);
+		text-decoration: none;
+		font-weight: 500;
+		font-size: 0.875rem;
+	}
+}
+
+html {
+	&::-webkit-scrollbar {
+		width: 12px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: var(--c-text-primary);
+		border: 4px solid var(--c-background-primary);
+		border-radius: 99em;
+	}
+}
+
+        </style>
+        <script>
+            Sass.compile(document.querySelector("style[type=scss]").innerHTML,function(res){
+    var s=document.createElement("style");
+    s.innerHTML=res.text;
+    res.formatted&&console.error(res.formatted); //if error console.error it.
+    res.text&&document.head.appendChild(s);// append style element only if no error.
+});
+        </script>
+    </head>
+    <body>
+        <header class="header">
+	<div class="header-content responsive-wrapper">
+		<div class="header-logo">
+			<a href="#">
+				<div>
+					<svg style="position: relative;bottom:10px;" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 50 50">
+<path d="M35.818,5H14.182C9.119,5,5,9.119,5,14.182v21.637C5,40.881,9.119,45,14.182,45h21.637C40.881,45,45,40.881,45,35.818	V14.182C45,9.119,40.881,5,35.818,5z M36.652,35.946c-1.41-2.523-3.043-2.598-4.75-1.93s-3.563,1.633-6.605,1.781	c-8.684,0.52-12.23-4.989-14.234-7.735c7.867,4.824,12.379,2.094,14.457,1.426c-5.492-3.34-12.023-13.211-12.023-13.211	s7.645,6.012,10.02,7.645C22.18,22.586,18.336,17.375,17,15c1.855,2.152,10.078,8.774,12.305,10.258	c0.977-5.727-0.227-8.071-2.305-12.227c9.996,7.062,7.648,16.012,7.648,16.012C37.023,31.493,36.949,33.645,36.652,35.946z"></path>
+</svg>
+				</div>
+				<div>
+					<img src="beta.png" style="position: relative;bottom:-20px;left:-45px;height:40px;">
+				</div>
+			</a>
+		</div>
+		<div class="header-navigation">
+			<nav class="header-navigation-links">
+				<a href="#"> Home </a>
+				<a href="#"> Dashboard Servers </a>
+				<a href="#"> Reporting bug </a>
+			</nav>
+			<div class="header-navigation-actions">
+                <a id="showPopup" style="position:relative; left:-5px;cursor:pointer;" class="button">
+                    <span>Token</span>
+                </a>
+                
+				<a href="#"class="button">
+					<span>Logout</span>
+				</a>
+
+
+    <div id="overlay"></div>
+    <div id="popup">
+        <span class="close" id="closePopup">×</span>
+        <p>{token:uid:clientID}</p>
+    </div>
+				
+				<a href="#" class="avatar">
+					<img src="avatar.jpg" alt="" />
+				</a>
+			</div>
+		</div>
+		<a href="#" class="button">
+			<i class="ph-list-bold"></i>
+			<span>Menu</span>
+		</a>
+	</div>
+</header>
+<main class="main">
+	<div class="responsive-wrapper">
+		<div class="main-header">
+			<h1>Bot Panel</h1>
+			<div class="search">
+				<input type="text" placeholder="Search" />
+				<button type="submit">
+					<i class="ph-magnifying-glass-bold"></i>
+				</button>
+			</div>
+		</div>
+		<div class="horizontal-tabs">
+			<a href="#">Other</a>
+			<a href="#">Chat</a>
+			<a href="#" class="active">Members</a>
+			<a href="#">API</a>
+		</div>
+		<div class="content-header">
+			<div class="content-header-intro">
+				<h2>Members in your server:</h2>		
+			</div>
+			<div class="content-header-actions">
+				<a href="#" class="button">
+					<i class="ph-faders-bold"></i>
+					<span>Filters</span>
+				</a>
+			</div>
+		</div>
+		<div class="content">
+			<div class="content-panel">
+				<div class="vertical-tabs">
+					<a href="#" class="active">View all</a>
+					<a href="#">Banned</a>
+					<a href="#">Muted</a>
+				</div>
+			</div>
+			<div class="content-main">
+				<div class="card-grid">
+					<article style="height:180px;" class="card">
+						<div class="card-header">
+							<div>
+								<span><img src="avatar.jpg" style="border-radius:15px 15px 15px 15px;" /></span>
+                                
+								<h3>Vel0cityUser</h3>
+                                <div class="status-check" style="height:13px;width:13px;background-color: red;border-radius: 15px 15px 15px 15px;position:relative;left:6px;bottom:-1px;"></div>
+                            </div>
+							
+						</div>
+						<div class="card-body">
+							<a style="position:relative;bottom:10px;"   href="#"class="button">
+					<span>Ban</span>
+				</a>
+                <a style="position:relative;bottom:10px;" href="#"class="button">
+					<span>Mute</span>
+				</a>
+						</div>
+						
+					</article>
+					<article style="height:180px;" class="card">
+						<div class="card-header">
+							<div>
+								<span><img src="avatar.jpg" style="border-radius:15px 15px 15px 15px;" /></span>
+                                
+								<h3>Vel0cityUser</h3>
+                                <div class="status-check" style="height:13px;width:13px;background-color: red;border-radius: 15px 15px 15px 15px;position:relative;left:6px;bottom:-1px;"></div>
+                            </div>
+							
+						</div>
+						<div class="card-body">
+							<a style="position:relative;bottom:10px;"   href="#"class="button">
+					<span>Ban</span>
+				</a>
+                <a style="position:relative;bottom:10px;" href="#"class="button">
+					<span>Mute</span>
+				</a>
+						</div>
+						
+					</article>
+					<article style="height:180px;" class="card">
+						<div class="card-header">
+							<div>
+								<span><img src="avatar.jpg" style="border-radius:15px 15px 15px 15px;" /></span>
+                                
+								<h3>Vel0cityUser</h3>
+                                <div class="status-check" style="height:13px;width:13px;background-color: red;border-radius: 15px 15px 15px 15px;position:relative;left:6px;bottom:-1px;"></div>
+                            </div>
+							
+						</div>
+						<div class="card-body">
+							<a style="position:relative;bottom:10px;"   href="#"class="button">
+					<span>Ban</span>
+				</a>
+                <a style="position:relative;bottom:10px;" href="#"class="button">
+					<span>Mute</span>
+				</a>
+						</div>
+						
+					</article>
+					
+					<article style="height:180px;" class="card">
+						<div class="card-header">
+							<div>
+								<span><img src="avatar.jpg" style="border-radius:15px 15px 15px 15px;" /></span>
+                                
+								<h3>Vel0cityUser</h3>
+                                <div class="status-check" style="height:13px;width:13px;background-color: red;border-radius: 15px 15px 15px 15px;position:relative;left:6px;bottom:-1px;"></div>
+                            </div>
+							
+						</div>
+						<div class="card-body">
+							<a style="position:relative;bottom:10px;"   href="#"class="button">
+					<span>Ban</span>
+				</a>
+                <a style="position:relative;bottom:10px;" href="#"class="button">
+					<span>Mute</span>
+				</a>
+						</div>
+						
+					</article>
+					<article style="height:180px;" class="card">
+						<div class="card-header">
+							<div>
+								<span><img src="avatar.jpg" style="border-radius:15px 15px 15px 15px;" /></span>
+                                
+								<h3>Vel0cityUser</h3>
+                                <div class="status-check" style="height:13px;width:13px;background-color: red;border-radius: 15px 15px 15px 15px;position:relative;left:6px;bottom:-1px;"></div>
+                            </div>
+							
+						</div>
+						<div class="card-body">
+							<a style="position:relative;bottom:10px;"   href="#"class="button">
+					<span>Ban</span>
+				</a>
+                <a style="position:relative;bottom:10px;" href="#"class="button">
+					<span>Mute</span>
+				</a>
+						</div>
+						
+					</article>
+					<article style="height:180px;" class="card">
+						<div class="card-header">
+							<div>
+								<span><img src="avatar.jpg" style="border-radius:15px 15px 15px 15px;" /></span>
+                                
+								<h3>Vel0cityUser</h3>
+                                <div class="status-check" style="height:13px;width:13px;background-color: red;border-radius: 15px 15px 15px 15px;position:relative;left:6px;bottom:-1px;"></div>
+                            </div>
+							
+						</div>
+						<div class="card-body">
+							<a style="position:relative;bottom:10px;"   href="#"class="button">
+					<span>Ban</span>
+				</a>
+                <a style="position:relative;bottom:10px;" href="#"class="button">
+					<span>Mute</span>
+				</a>
+						</div>
+						
+					</article>
+					<article style="height:180px;" class="card">
+						<div class="card-header">
+							<div>
+								<span><img src="avatar.jpg" style="border-radius:15px 15px 15px 15px;" /></span>
+                                
+								<h3>Vel0cityUser</h3>
+                                <div class="status-check" style="height:13px;width:13px;background-color: red;border-radius: 15px 15px 15px 15px;position:relative;left:6px;bottom:-1px;"></div>
+                            </div>
+							
+						</div>
+						<div class="card-body">
+							<a style="position:relative;bottom:10px;"   href="#"class="button">
+					<span>Ban</span>
+				</a>
+                <a style="position:relative;bottom:10px;" href="#"class="button">
+					<span>Mute</span>
+				</a>
+						</div>
+						
+					</article>
+					<article style="height:180px;" class="card">
+						<div class="card-header">
+							<div>
+								<span><img src="avatar.jpg" style="border-radius:15px 15px 15px 15px;" /></span>
+                                
+								<h3>Vel0cityUser</h3>
+                                <div class="status-check" style="height:13px;width:13px;background-color: red;border-radius: 15px 15px 15px 15px;position:relative;left:6px;bottom:-1px;"></div>
+                            </div>
+							
+						</div>
+						<div class="card-body">
+							<a style="position:relative;bottom:10px;"   href="#"class="button">
+					<span>Ban</span>
+				</a>
+                <a style="position:relative;bottom:10px;" href="#"class="button">
+					<span>Mute</span>
+				</a>
+						</div>
+						
+					</article>
+					<article style="height:180px;" class="card">
+						<div class="card-header">
+							<div>
+								<span><img src="avatar.jpg" style="border-radius:15px 15px 15px 15px;" /></span>
+                                
+								<h3>Vel0cityUser</h3>
+                                <div class="status-check" style="height:13px;width:13px;background-color: red;border-radius: 15px 15px 15px 15px;position:relative;left:6px;bottom:-1px;"></div>
+                            </div>
+							
+						</div>
+						<div class="card-body">
+							<a style="position:relative;bottom:10px;"   href="#"class="button">
+					<span>Ban</span>
+				</a>
+                <a style="position:relative;bottom:10px;" href="#"class="button">
+					<span>Mute</span>
+				</a>
+						</div>
+						
+					</article>
+					<article style="height:180px;" class="card">
+						<div class="card-header">
+							<div>
+								<span><img src="avatar.jpg" style="border-radius:15px 15px 15px 15px;" /></span>
+                                
+								<h3>Vel0cityUser</h3>
+                                <div class="status-check" style="height:13px;width:13px;background-color: red;border-radius: 15px 15px 15px 15px;position:relative;left:6px;bottom:-1px;"></div>
+                            </div>
+							
+						</div>
+						<div class="card-body">
+							<a style="position:relative;bottom:10px;"   href="#"class="button">
+					<span>Ban</span>
+				</a>
+                <a style="position:relative;bottom:10px;" href="#"class="button">
+					<span>Mute</span>
+				</a>
+						</div>
+						
+					</article>
+					<article style="height:180px;" class="card">
+						<div class="card-header">
+							<div>
+								<span><img src="avatar.jpg" style="border-radius:15px 15px 15px 15px;" /></span>
+                                
+								<h3>Vel0cityUser</h3>
+                                <div class="status-check" style="height:13px;width:13px;background-color: red;border-radius: 15px 15px 15px 15px;position:relative;left:6px;bottom:-1px;"></div>
+                            </div>
+							
+						</div>
+						<div class="card-body">
+							<a style="position:relative;bottom:10px;"   href="#"class="button">
+					<span>Ban</span>
+				</a>
+                <a style="position:relative;bottom:10px;" href="#"class="button">
+					<span>Mute</span>
+				</a>
+						</div>
+						
+					</article>
+					<article style="height:180px;" class="card">
+						<div class="card-header">
+							<div>
+								<span><img src="avatar.jpg" style="border-radius:15px 15px 15px 15px;" /></span>
+                                
+								<h3>Vel0cityUser</h3>
+                                <div class="status-check" style="height:13px;width:13px;background-color: red;border-radius: 15px 15px 15px 15px;position:relative;left:6px;bottom:-1px;"></div>
+                            </div>
+							
+						</div>
+						<div class="card-body">
+							<a style="position:relative;bottom:10px;"   href="#"class="button">
+					<span>Ban</span>
+				</a>
+                <a style="position:relative;bottom:10px;" href="#"class="button">
+					<span>Mute</span>
+				</a>
+						</div>
+						
+					</article>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+    </body>
+</html>
+<script>
+     
+        const showPopupButton = document.getElementById('showPopup');
+        const popup = document.getElementById('popup');
+        const overlay = document.getElementById('overlay');
+        const closePopupButton = document.getElementById('closePopup');
+
+        showPopupButton.addEventListener('click', function() {
+            overlay.style.display = 'block';
+            popup.style.display = 'block';
+            setTimeout(() => {
+                popup.style.opacity = '1';
+            }, 10);  // небольшая задержка для включения анимации
+        });
+
+        closePopupButton.addEventListener('click', function() {
+            popup.style.opacity = '0';
+            overlay.style.display = 'none'; // скрываем фон сразу
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 300); // задержка равна времени анимации
+        });
+
+        overlay.addEventListener('click', function() {
+            popup.style.opacity = '0';
+            overlay.style.display = 'none'; // скрываем фон сразу
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 300); // задержка равна времени анимации
+        });
+        
+</script>
+<script>
+    /*
+    const statuscheck = document.querySelectorAll('status-check');
+    // const status = discord.status()
+    // const statusArray = [
+            "online",
+            "offline";
+        
+    ]
+    
+    function status(statuscheck){
+        if(status == online){
+            statuscheck.style.background = "green";
+        }
+        else{
+            statuscheck.style.background = "red";
+        }
+    }
+*/
+</script>
